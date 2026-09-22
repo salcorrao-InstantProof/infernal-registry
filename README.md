@@ -1,2 +1,5 @@
-# infernal-registry
-Novelty pact shop. File a bargain. Receive a numbered certificate.
+# The Infernal Registry
+
+Novelty pact shop. One page. File a bargain, get a numbered certificate.
+
+This is theater. No souls transferred.
