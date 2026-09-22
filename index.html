@@ -124,15 +124,15 @@
     .pact .meta { display: flex; justify-content: space-between; font-family: "Cinzel", serif; font-size: 9.5px; letter-spacing: .12em; border-top: 1px solid #6b4e2e; border-bottom: 1px solid #6b4e2e; padding: 7px 0; margin-bottom: 14px; }
     .pact p.body { font-size: clamp(12px, 3.6vw, 15px); line-height: 1.45; }
     .pact .bargain { font-style: italic; border-left: 2px solid var(--blood); padding-left: 10px; margin: 10px 0; font-size: clamp(14px, 4.2vw, 17px); }
-    .pact .devil { color: #9c1c1c; font-style: italic; margin: 10px 0 12px; font-size: clamp(13px, 3.8vw, 16px); line-height: 1.4; }
-    .pact .devil > span:first-child { font-family: "Cinzel", serif; font-style: normal; font-size: 9px; letter-spacing: .2em; text-transform: uppercase; display: block; margin-bottom: 2px; }
+    .pact .devil { color: #1f150c; font-style: normal; margin: 12px 0 14px; font-size: clamp(14px, 4.1vw, 17px); line-height: 1.45; }
+    .pact .devil > span:first-child { font-family: "Cinzel", serif; color: #9c1c1c; font-size: 9.5px; letter-spacing: .2em; text-transform: uppercase; display: block; margin-bottom: 4px; }
     .pact .signs { margin-top: auto; display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: end; font-size: 12px; }
     .sign-line { border-top: 1px solid #1a140e; padding-top: 5px; margin-top: 26px; }
     .seal { width: 66px; height: 66px; border-radius: 50%; border: 3px solid #b3b3b3; color: #9a9a9a; display: grid; place-items: center; font-family: "Cinzel", serif; font-size: 8px; letter-spacing: .1em; text-align: center; text-transform: uppercase; transform: rotate(-12deg); }
     .unsigned {
-      position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) rotate(-18deg);
-      font-family: "Cinzel", serif; font-weight: 900; font-size: clamp(34px, 11vw, 56px); letter-spacing: .12em; color: rgba(179,38,38,.85);
-      border: 5px solid rgba(179,38,38,.85); padding: 4px 16px; white-space: nowrap; pointer-events: none; mix-blend-mode: multiply;
+      position: absolute; left: 50%; top: 72%; transform: translate(-50%, -50%) rotate(-14deg);
+      font-family: "Cinzel", serif; font-weight: 900; font-size: clamp(34px, 11vw, 56px); letter-spacing: .12em; color: rgba(179,38,38,.55);
+      border: 5px solid rgba(179,38,38,.55); padding: 4px 16px; white-space: nowrap; pointer-events: none; mix-blend-mode: multiply;
     }
     .cert-note { text-align: center; color: var(--muted); font-size: 15px; margin-top: 10px; }
 
@@ -243,7 +243,7 @@
 /* ============================================================
    CONFIG — the only part Sonny needs to touch before going live
    ============================================================ */
-const SITE_URL = "https://infernal-registry.netlify.app";   // where "File yours" links point
+const SITE_URL = "https://infernalregistry.netlify.app";   // where "File yours" links point
 // Stripe Payment Links (create in Stripe Dashboard → Payment Links). Leave "" until you have them.
 // Tip: add two custom fields on each link — "Name on the pact" and "Your wish" — so the order carries the text.
 const PAY = {
@@ -432,10 +432,10 @@ async function drawCard(name, wish, terms, status) {
   ctx.font = 'italic 600 ' + wishFit.px + 'px "Cormorant Garamond"';
   let y = drawBlock(ctx, wishFit.lines, W / 2, 560, wishFit.px, 1.1, "#e8dcc8");
   y += 34; ctx.strokeStyle = "#b32626"; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(W / 2 - 160, y); ctx.lineTo(W / 2 + 160, y); ctx.stroke();
-  y += 56; ctx.fillStyle = "#c4a35a"; ctx.font = '500 24px "Cinzel"'; spaced(ctx, "AS RECORDED BY THE REGISTRY", W / 2, y, 7);
-  y += 62; const tFit = fitText(ctx, terms, '500 {px}px "Cormorant Garamond"', 880, 44, 32, 7);
+  y += 56; ctx.fillStyle = "#d9302f"; ctx.font = '600 24px "Cinzel"'; spaced(ctx, "AS RECORDED BY THE REGISTRY", W / 2, y, 7);
+  y += 62; const tFit = fitText(ctx, terms, '600 {px}px "Cormorant Garamond"', 900, 46, 34, 7);
   ctx.font = '500 ' + tFit.px + 'px "Cormorant Garamond"';
-  y = drawBlock(ctx, tFit.lines, W / 2, y, tFit.px, 1.22, "#d9302f");
+  y = drawBlock(ctx, tFit.lines, W / 2, y, tFit.px, 1.22, "#f1e6d2");
   y += 44; ctx.fillStyle = "#9a8c78"; ctx.font = '500 22px "Cinzel"'; spaced(ctx, status === "filed" ? "INSTRUMENT OF PACT" : "INSTRUMENT OF PACT  ·  NO. PENDING", W / 2, y, 6);
   // stamp
   const label = status === "filed" ? "FILED" : "UNSIGNED"; const sub = status === "filed" ? "DESK 13" : "NOT YET FILED";
