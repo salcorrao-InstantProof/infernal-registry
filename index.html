@@ -3,9 +3,155 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>The Infernal Registry</title>
+  <title>The Infernal Registry — Office of Pacts</title>
+  <meta name="description" content="File a novelty pact. Receive a numbered certificate. No souls transferred." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=UnifrakturMaguntia&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #070605;
+      --panel: #100e0c;
+      --ink: #e8dcc8;
+      --muted: #8a7d6b;
+      --rule: #3a3228;
+      --blood: #8b1e1e;
+      --blood-hot: #b32626;
+      --gold: #c4a35a;
+      --paper: #e7d7b8;
+      --paper-ink: #1a140e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--bg); color: var(--ink); }
+    body {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      min-height: 100vh;
+      background-image:
+        radial-gradient(ellipse at 50% 0%, #1a1210 0%, transparent 55%),
+        repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,.18) 3px, rgba(0,0,0,.18) 4px);
+    }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 48px 24px 80px; }
+    header { text-align: center; margin-bottom: 48px; }
+    .dept { letter-spacing: .42em; font-size: 11px; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; }
+    h1 { font-family: "UnifrakturMaguntia", "Cinzel", serif; font-size: clamp(42px, 8vw, 86px); font-weight: 400; line-height: .9; }
+    h1 span { display: block; font-family: "Cinzel", serif; font-size: .28em; letter-spacing: .38em; margin-top: 14px; font-weight: 500; color: var(--muted); }
+    .rule { height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 28px auto; max-width: 420px; }
+    .lede { max-width: 520px; margin: 0 auto; font-size: 20px; line-height: 1.45; color: var(--muted); font-style: italic; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
+    @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
+    .panel { background: var(--panel); border: 1px solid var(--rule); padding: 28px; }
+    label { display: block; font-family: "Cinzel", serif; font-size: 10px; letter-spacing: .28em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+    input, textarea { width: 100%; background: #0a0908; border: 1px solid var(--rule); color: var(--ink); font-family: "Cormorant Garamond", serif; font-size: 18px; padding: 12px 14px; margin-bottom: 18px; outline: none; }
+    input:focus, textarea:focus { border-color: var(--gold); }
+    textarea { min-height: 110px; resize: vertical; }
+    .tiers { display: grid; gap: 10px; margin-bottom: 22px; }
+    .tier { border: 1px solid var(--rule); padding: 12px 14px; cursor: pointer; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+    .tier input { width: auto; margin: 0 10px 0 0; }
+    .tier.picked { border-color: var(--gold); background: #16120e; }
+    .tier b { font-family: "Cinzel", serif; font-size: 13px; letter-spacing: .08em; }
+    .tier em { font-style: italic; color: var(--muted); font-size: 16px; }
+    .price { color: var(--gold); font-family: "Cinzel", serif; }
+    button.file { width: 100%; background: var(--blood); color: #f3e6d2; border: 0; padding: 16px; font-family: "Cinzel", serif; letter-spacing: .22em; text-transform: uppercase; font-size: 12px; cursor: pointer; }
+    button.file:hover { background: var(--blood-hot); }
+    .fine { margin-top: 16px; font-size: 13px; color: var(--muted); line-height: 1.4; }
+    .pact { background: var(--paper); color: var(--paper-ink); aspect-ratio: 8.5 / 11; padding: 7%; box-shadow: 0 30px 80px rgba(0,0,0,.55); background-image: radial-gradient(circle at 20% 10%, rgba(180,40,40,.08), transparent 40%), linear-gradient(180deg, #efe0c4 0%, #e7d7b8 50%, #dcc9a4 100%); }
+    .pact-inner { height: 100%; border: 1.5px solid #6b4e2e; padding: 8% 7%; display: flex; flex-direction: column; position: relative; }
+    .pact-inner:before { content: ""; position: absolute; inset: 6px; border: 1px solid rgba(107,78,46,.35); pointer-events: none; }
+    .pact .office { text-align: center; font-family: "Cinzel", serif; font-size: 9px; letter-spacing: .32em; text-transform: uppercase; color: #6b4e2e; }
+    .pact h2 { font-family: "UnifrakturMaguntia", serif; text-align: center; font-size: clamp(28px, 4.2vw, 44px); margin: 10px 0 4px; font-weight: 400; }
+    .pact .sub { text-align: center; font-style: italic; font-size: 15px; color: #4a3a28; margin-bottom: 18px; }
+    .pact .meta { display: flex; justify-content: space-between; font-family: "Cinzel", serif; font-size: 10px; letter-spacing: .14em; border-top: 1px solid #6b4e2e; border-bottom: 1px solid #6b4e2e; padding: 8px 0; margin-bottom: 18px; }
+    .pact p.body { font-size: clamp(14px, 1.7vw, 17px); line-height: 1.55; flex: 1; }
+    .pact .bargain { font-style: italic; border-left: 2px solid var(--blood); padding-left: 12px; margin: 12px 0; }
+    .pact .signs { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 18px; font-size: 13px; }
+    .sign-line { border-top: 1px solid #1a140e; padding-top: 6px; margin-top: 28px; }
+    .seal { width: 72px; height: 72px; border-radius: 50%; border: 3px solid var(--blood); color: var(--blood); display: grid; place-items: center; font-family: "Cinzel", serif; font-size: 9px; letter-spacing: .12em; text-align: center; text-transform: uppercase; transform: rotate(-12deg); margin-left: auto; box-shadow: inset 0 0 0 2px rgba(139,30,30,.35); }
+    .actions { display: flex; gap: 10px; margin-top: 14px; }
+    .actions button { flex: 1; background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 12px; font-family: "Cinzel", serif; letter-spacing: .16em; text-transform: uppercase; font-size: 10px; cursor: pointer; }
+    footer { margin-top: 56px; text-align: center; color: var(--muted); font-size: 13px; }
+    @media print {
+      body { background: #fff; }
+      .wrap > header, form, .actions, footer, .fine { display: none !important; }
+      .grid { display: block; }
+      .pact { box-shadow: none; width: 100%; }
+    }
+  </style>
 </head>
 <body>
-<p>placeholder</p>
+  <div class="wrap">
+    <header>
+      <div class="dept">Bureau of Unfinished Business · Desk 13</div>
+      <h1>The Infernal Registry<span>Office of Pacts</span></h1>
+      <div class="rule"></div>
+      <p class="lede">State the bargain. Pay the clerk’s fee. Receive a numbered certificate. This is theater. No souls are transferred. The devil is a brand.</p>
+    </header>
+    <div class="grid">
+      <form class="panel" id="intake" onsubmit="return filePact(event)">
+        <label for="party">Party of the first part</label>
+        <input id="party" name="party" autocomplete="name" placeholder="Your name as it should appear" required />
+        <label for="bargain">The consideration sought</label>
+        <textarea id="bargain" name="bargain" maxlength="280" placeholder="What you want. One sentence. The clerk will not edit it." required></textarea>
+        <label>Fee schedule</label>
+        <div class="tiers">
+          <label class="tier picked"><span><input type="radio" name="tier" value="6.66" checked /> <b>Filed copy</b> · <em>instant certificate</em></span><span class="price">$6.66</span></label>
+          <label class="tier"><span><input type="radio" name="tier" value="26" /> <b>Sealed packet</b> · <em>print it yourself tonight</em></span><span class="price">$26</span></label>
+          <label class="tier"><span><input type="radio" name="tier" value="66" /> <b>Archive copy</b> · <em>the ugly official one</em></span><span class="price">$66</span></label>
+        </div>
+        <button class="file" type="submit">File the pact</button>
+        <p class="fine">Checkout is not wired to a bank yet. Filing generates the certificate now. Stripe drops on this button when you have keys. You are selling paper, not a miracle.</p>
+      </form>
+      <div class="pact-stage">
+        <div class="pact" id="pact">
+          <div class="pact-inner">
+            <div class="office">Infernal Registry · Novelty Instrument</div>
+            <h2>Instrument of Pact</h2>
+            <div class="sub">Entered for spectacle, not for metaphysics</div>
+            <div class="meta"><span id="pactNo">No. —</span><span id="pactDate">Date —</span></div>
+            <p class="body">Be it known that <strong id="outParty">the undersigned</strong> has this day presented the following petition to the clerk:</p>
+            <p class="bargain" id="outBargain">“—”</p>
+            <p class="body">In consideration of the fee of <strong id="outFee">$6.66</strong>, a numbered copy of this instrument is issued. The Registry makes no representation that any power, spirit, or outcome attaches to this paper.</p>
+            <div class="signs">
+              <div><div class="sign-line" id="signParty"> </div>Party of the first part</div>
+              <div><div class="seal">Filed<br/>Desk 13</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="actions">
+          <button type="button" onclick="window.print()">Print certificate</button>
+        </div>
+      </div>
+    </div>
+    <footer>The Infernal Registry is a novelty print shop. Keep the paper. Do not sue the dark.</footer>
+  </div>
+  <script>
+    const tiers = document.querySelectorAll(".tier");
+    tiers.forEach((t) => {
+      t.addEventListener("click", () => {
+        tiers.forEach((x) => x.classList.remove("picked"));
+        t.classList.add("picked");
+        t.querySelector("input").checked = true;
+      });
+    });
+    function nextNumber() {
+      const n = Number(localStorage.getItem("ir_seq") || "66000") + 1;
+      localStorage.setItem("ir_seq", String(n));
+      return "IR-" + String(n).padStart(6, "0");
+    }
+    function filePact(e) {
+      e.preventDefault();
+      const party = document.getElementById("party").value.trim();
+      const bargain = document.getElementById("bargain").value.trim();
+      const fee = document.querySelector("input[name=tier]:checked").value;
+      if (!party || !bargain) return false;
+      document.getElementById("outParty").textContent = party;
+      document.getElementById("outBargain").textContent = "\u201c" + bargain + "\u201d";
+      document.getElementById("outFee").textContent = "$" + fee;
+      document.getElementById("signParty").textContent = party;
+      document.getElementById("pactNo").textContent = "No. " + nextNumber();
+      document.getElementById("pactDate").textContent = new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }).toUpperCase();
+      document.getElementById("pact").scrollIntoView({ behavior: "smooth", block: "center" });
+      return false;
+    }
+  </script>
 </body>
 </html>
