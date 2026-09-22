@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>The Infernal Registry — Office of Pacts</title>
-  <meta name="description" content="File a novelty pact. Receive a numbered certificate. No souls transferred." />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>The Infernal Registry — What would you sell your soul for?</title>
+  <meta name="description" content="Say what you'd sell your soul for. We put it in writing, number it, seal it, and mail it to you. This is theater. No souls are transferred." />
+  <meta name="robots" content="index,follow" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=UnifrakturMaguntia&display=swap" rel="stylesheet" />
@@ -13,145 +14,511 @@
       --bg: #070605;
       --panel: #100e0c;
       --ink: #e8dcc8;
-      --muted: #8a7d6b;
+      --muted: #c9b99f;
       --rule: #3a3228;
-      --blood: #8b1e1e;
-      --blood-hot: #b32626;
-      --gold: #c4a35a;
+      --blood: #b32626;
+      --blood-hot: #d12a2a;
+      --brass: #c4a35a;
       --paper: #e7d7b8;
       --paper-ink: #1a140e;
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
     }
+    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #070605; } }
+    :root[data-theme="dark"] { --bg: #070605; }
+    html { scroll-padding-top: env(safe-area-inset-top, 0px); }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { background: var(--bg); color: var(--ink); }
     body {
-      font-family: "Cormorant Garamond", Georgia, serif;
-      min-height: 100vh;
+      font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+      font-size: 19px;
+      line-height: 1.45;
+      min-height: 100%;
       background-image:
-        radial-gradient(ellipse at 50% 0%, #1a1210 0%, transparent 55%),
-        repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,.18) 3px, rgba(0,0,0,.18) 4px);
+        radial-gradient(ellipse at 50% -6%, rgba(179,38,38,.22) 0%, transparent 44%),
+        radial-gradient(ellipse at 85% 110%, rgba(90,8,8,.35) 0%, transparent 40%);
     }
-    .wrap { max-width: 1080px; margin: 0 auto; padding: 48px 24px 80px; }
-    header { text-align: center; margin-bottom: 48px; }
-    .dept { letter-spacing: .42em; font-size: 11px; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; }
-    h1 { font-family: "UnifrakturMaguntia", "Cinzel", serif; font-size: clamp(42px, 8vw, 86px); font-weight: 400; line-height: .9; }
-    h1 span { display: block; font-family: "Cinzel", serif; font-size: .28em; letter-spacing: .38em; margin-top: 14px; font-weight: 500; color: var(--muted); }
-    .rule { height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 28px auto; max-width: 420px; }
-    .lede { max-width: 520px; margin: 0 auto; font-size: 20px; line-height: 1.45; color: var(--muted); font-style: italic; }
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
-    @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
-    .panel { background: var(--panel); border: 1px solid var(--rule); padding: 28px; }
-    label { display: block; font-family: "Cinzel", serif; font-size: 10px; letter-spacing: .28em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
-    input, textarea { width: 100%; background: #0a0908; border: 1px solid var(--rule); color: var(--ink); font-family: "Cormorant Garamond", serif; font-size: 18px; padding: 12px 14px; margin-bottom: 18px; outline: none; }
-    input:focus, textarea:focus { border-color: var(--gold); }
-    textarea { min-height: 110px; resize: vertical; }
-    .tiers { display: grid; gap: 10px; margin-bottom: 22px; }
-    .tier { border: 1px solid var(--rule); padding: 12px 14px; cursor: pointer; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
-    .tier input { width: auto; margin: 0 10px 0 0; }
-    .tier.picked { border-color: var(--gold); background: #16120e; }
-    .tier b { font-family: "Cinzel", serif; font-size: 13px; letter-spacing: .08em; }
-    .tier em { font-style: italic; color: var(--muted); font-size: 16px; }
-    .price { color: var(--gold); font-family: "Cinzel", serif; }
-    button.file { width: 100%; background: var(--blood); color: #f3e6d2; border: 0; padding: 16px; font-family: "Cinzel", serif; letter-spacing: .22em; text-transform: uppercase; font-size: 12px; cursor: pointer; }
-    button.file:hover { background: var(--blood-hot); }
-    .fine { margin-top: 16px; font-size: 13px; color: var(--muted); line-height: 1.4; }
-    .pact { background: var(--paper); color: var(--paper-ink); aspect-ratio: 8.5 / 11; padding: 7%; box-shadow: 0 30px 80px rgba(0,0,0,.55); background-image: radial-gradient(circle at 20% 10%, rgba(180,40,40,.08), transparent 40%), linear-gradient(180deg, #efe0c4 0%, #e7d7b8 50%, #dcc9a4 100%); }
-    .pact-inner { height: 100%; border: 1.5px solid #6b4e2e; padding: 8% 7%; display: flex; flex-direction: column; position: relative; }
-    .pact-inner:before { content: ""; position: absolute; inset: 6px; border: 1px solid rgba(107,78,46,.35); pointer-events: none; }
-    .pact .office { text-align: center; font-family: "Cinzel", serif; font-size: 9px; letter-spacing: .32em; text-transform: uppercase; color: #6b4e2e; }
-    .pact h2 { font-family: "UnifrakturMaguntia", serif; text-align: center; font-size: clamp(28px, 4.2vw, 44px); margin: 10px 0 4px; font-weight: 400; }
-    .pact .sub { text-align: center; font-style: italic; font-size: 15px; color: #4a3a28; margin-bottom: 18px; }
-    .pact .meta { display: flex; justify-content: space-between; font-family: "Cinzel", serif; font-size: 10px; letter-spacing: .14em; border-top: 1px solid #6b4e2e; border-bottom: 1px solid #6b4e2e; padding: 8px 0; margin-bottom: 18px; }
-    .pact p.body { font-size: clamp(14px, 1.7vw, 17px); line-height: 1.55; flex: 1; }
-    .pact .bargain { font-style: italic; border-left: 2px solid var(--blood); padding-left: 12px; margin: 12px 0; }
-    .pact .signs { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 18px; font-size: 13px; }
-    .sign-line { border-top: 1px solid #1a140e; padding-top: 6px; margin-top: 28px; }
-    .seal { width: 72px; height: 72px; border-radius: 50%; border: 3px solid var(--blood); color: var(--blood); display: grid; place-items: center; font-family: "Cinzel", serif; font-size: 9px; letter-spacing: .12em; text-align: center; text-transform: uppercase; transform: rotate(-12deg); margin-left: auto; box-shadow: inset 0 0 0 2px rgba(139,30,30,.35); }
-    .actions { display: flex; gap: 10px; margin-top: 14px; }
-    .actions button { flex: 1; background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 12px; font-family: "Cinzel", serif; letter-spacing: .16em; text-transform: uppercase; font-size: 10px; cursor: pointer; }
-    footer { margin-top: 56px; text-align: center; color: var(--muted); font-size: 13px; }
-    @media print {
-      body { background: #fff; }
-      .wrap > header, form, .actions, footer, .fine { display: none !important; }
-      .grid { display: block; }
-      .pact { box-shadow: none; width: 100%; }
+    .wrap { max-width: 560px; margin: 0 auto; padding: 36px 18px 72px; }
+
+    /* Header */
+    header { text-align: center; margin-bottom: 30px; }
+    .mark { width: 88px; height: 88px; margin: 0 auto 10px; display: block; }
+    .dept { font-family: "Cinzel", serif; font-size: 11px; letter-spacing: .26em; line-height: 1.8; text-transform: uppercase; color: var(--brass); margin-bottom: 14px; }
+    h1 { font-family: "UnifrakturMaguntia", "Cinzel", serif; font-weight: 400; font-size: clamp(38px, 11vw, 60px); line-height: .95; }
+    h1 small { display: block; font-family: "Cinzel", serif; font-size: 11.5px; letter-spacing: .16em; margin-top: 12px; color: var(--brass); font-weight: 600; }
+    .question { margin: 26px auto 0; font-size: clamp(27px, 7.4vw, 36px); line-height: 1.12; font-style: italic; font-weight: 600; max-width: 22ch; }
+    .lede { margin: 14px auto 0; max-width: 40ch; color: var(--paper); font-size: 18px; line-height: 1.5; }
+
+    /* Form */
+    .panel { background: var(--panel); border: 1px solid var(--rule); padding: 22px 18px; }
+    label { display: block; font-family: "Cinzel", serif; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--brass); margin-bottom: 7px; }
+    .hint { color: var(--muted); font-size: 16px; margin: -2px 0 8px; }
+    input, textarea {
+      width: 100%; background: #0a0908; border: 1px solid var(--rule); color: var(--ink);
+      font-family: inherit; font-size: 20px; padding: 13px 14px; margin-bottom: 18px; outline: none; border-radius: 0;
     }
+    textarea { min-height: 96px; resize: vertical; line-height: 1.35; }
+    input:focus-visible, textarea:focus-visible, button:focus-visible, a:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+    .count { text-align: right; color: var(--muted); font-size: 14px; margin: -14px 0 14px; }
+    button.primary {
+      width: 100%; background: var(--blood); color: #f3e6d2; border: 0; padding: 17px 12px; cursor: pointer;
+      font-family: "Cinzel", serif; letter-spacing: .18em; text-transform: uppercase; font-size: 13px; font-weight: 700;
+    }
+    button.primary:hover { background: var(--blood-hot); }
+    button.primary:disabled { opacity: .55; cursor: default; }
+    .err { color: var(--blood-hot); font-size: 16px; margin-top: 12px; display: none; }
+    .err.show { display: block; }
+
+    /* Result */
+    #result { display: none; margin-top: 34px; }
+    #result.show { display: block; }
+    .answer-box { border: 1px solid var(--rule); border-left: 3px solid var(--blood); padding: 16px 16px 14px; background: var(--panel); margin-bottom: 18px; }
+    .answer-box .who { color: var(--muted); font-size: 16px; }
+    .answer-box .wish { font-style: italic; font-size: 22px; line-height: 1.3; margin: 4px 0 12px; }
+    .answer-box .dev { font-family: "Cinzel", serif; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--brass); }
+    .answer-box .reply { color: var(--blood-hot); font-size: 24px; line-height: 1.25; font-weight: 600; margin-top: 4px; }
+    .cardwrap { position: relative; width: min(100%, 340px); margin: 0 auto; aspect-ratio: 9 / 16; background: #000; box-shadow: 0 24px 60px rgba(0,0,0,.6); }
+    .cardwrap img, .cardwrap canvas { width: 100%; height: 100%; display: block; }
+    .stamp-note { text-align: center; color: var(--muted); font-size: 15px; margin-top: 10px; }
+    .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
+    .actions button, .actions a {
+      display: block; text-align: center; background: transparent; border: 1px solid var(--brass); color: var(--brass);
+      padding: 13px 8px; cursor: pointer; font-family: "Cinzel", serif; letter-spacing: .14em; text-transform: uppercase; font-size: 11px; text-decoration: none;
+    }
+    .actions button:hover, .actions a:hover { background: #16120e; }
+    .toast { text-align: center; color: var(--brass); font-size: 15px; min-height: 22px; margin-top: 8px; }
+
+    /* Tiers */
+    .official { margin-top: 36px; }
+    h2 { font-family: "Cinzel", serif; font-size: 17px; letter-spacing: .16em; text-transform: uppercase; font-weight: 700; margin-bottom: 6px; }
+    .official p.sub { color: var(--muted); font-size: 17px; margin-bottom: 16px; }
+    .tier.lead { border-color: var(--brass); }
+    .tier.lead button { background: var(--blood); border-color: var(--blood); color: #f3e6d2; }
+    .tier.lead button:hover { background: var(--blood-hot); }
+    .tier { display: block; border: 1px solid var(--rule); background: var(--panel); padding: 14px 16px; margin-bottom: 10px; }
+    .tier .row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+    .tier b { font-family: "Cinzel", serif; font-size: 14px; letter-spacing: .08em; }
+    .tier .price { font-family: "Cinzel", serif; color: var(--brass); font-size: 18px; white-space: nowrap; }
+    .tier .what { color: var(--muted); font-size: 16px; margin-top: 4px; }
+    .tier .what strong { color: var(--ink); font-weight: 600; }
+    .tier button { margin-top: 12px; width: 100%; background: transparent; border: 1px solid var(--blood); color: var(--ink); padding: 12px; cursor: pointer; font-family: "Cinzel", serif; letter-spacing: .14em; text-transform: uppercase; font-size: 11px; }
+    .tier button:hover { background: var(--blood); }
+    .tier button.off { border-color: var(--rule); color: var(--muted); cursor: default; }
+    .fine { margin-top: 16px; font-size: 15px; color: var(--muted); line-height: 1.45; }
+    .fine em { color: var(--ink); font-style: italic; }
+
+    /* Certificate preview */
+    .pact-stage { margin-top: 30px; position: relative; }
+    .pact {
+      background: var(--paper); color: var(--paper-ink); min-height: calc(100vw * 11 / 8.5); padding: 6%;
+      box-shadow: 0 30px 80px rgba(0,0,0,.55);
+      background-image: linear-gradient(180deg, #efe0c4 0%, #e7d7b8 50%, #dcc9a4 100%);
+      position: relative; overflow: hidden;
+    }
+    .pact-inner { min-height: 100%; border: 1.5px solid #6b4e2e; padding: 7% 6%; display: flex; flex-direction: column; position: relative; }
+    .pact-inner:before { content: ""; position: absolute; inset: 5px; border: 1px solid rgba(107,78,46,.35); pointer-events: none; }
+    .pact .office { text-align: center; font-family: "Cinzel", serif; font-size: 9px; letter-spacing: .3em; text-transform: uppercase; color: #6b4e2e; }
+    .pact h3 { font-family: "UnifrakturMaguntia", serif; text-align: center; font-size: clamp(26px, 8vw, 40px); margin: 8px 0 2px; font-weight: 400; }
+    .pact .sub { text-align: center; font-style: italic; font-size: 14px; color: #4a3a28; margin-bottom: 14px; }
+    .pact .meta { display: flex; justify-content: space-between; font-family: "Cinzel", serif; font-size: 9.5px; letter-spacing: .12em; border-top: 1px solid #6b4e2e; border-bottom: 1px solid #6b4e2e; padding: 7px 0; margin-bottom: 14px; }
+    .pact p.body { font-size: clamp(12px, 3.6vw, 15px); line-height: 1.45; }
+    .pact .bargain { font-style: italic; border-left: 2px solid var(--blood); padding-left: 10px; margin: 10px 0; font-size: clamp(14px, 4.2vw, 17px); }
+    .pact .devil { color: #9c1c1c; font-style: italic; margin: 10px 0 12px; font-size: clamp(13px, 3.8vw, 16px); line-height: 1.4; }
+    .pact .devil > span:first-child { font-family: "Cinzel", serif; font-style: normal; font-size: 9px; letter-spacing: .2em; text-transform: uppercase; display: block; margin-bottom: 2px; }
+    .pact .signs { margin-top: auto; display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: end; font-size: 12px; }
+    .sign-line { border-top: 1px solid #1a140e; padding-top: 5px; margin-top: 26px; }
+    .seal { width: 66px; height: 66px; border-radius: 50%; border: 3px solid #b3b3b3; color: #9a9a9a; display: grid; place-items: center; font-family: "Cinzel", serif; font-size: 8px; letter-spacing: .1em; text-align: center; text-transform: uppercase; transform: rotate(-12deg); }
+    .unsigned {
+      position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) rotate(-18deg);
+      font-family: "Cinzel", serif; font-weight: 900; font-size: clamp(34px, 11vw, 56px); letter-spacing: .12em; color: rgba(179,38,38,.85);
+      border: 5px solid rgba(179,38,38,.85); padding: 4px 16px; white-space: nowrap; pointer-events: none; mix-blend-mode: multiply;
+    }
+    .cert-note { text-align: center; color: var(--muted); font-size: 15px; margin-top: 10px; }
+
+    /* Footer */
+    footer { margin-top: 48px; text-align: center; color: var(--muted); font-size: 14px; line-height: 1.5; }
+    footer a { color: var(--brass); }
+    .stamp-in { animation: stampIn .28s cubic-bezier(.2,1.4,.4,1) both; }
+    @keyframes stampIn { from { transform: translate(-50%,-50%) rotate(-18deg) scale(2.2); opacity: 0; } to { transform: translate(-50%,-50%) rotate(-18deg) scale(1); opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) { .stamp-in { animation: none; } }
+    .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
   </style>
 </head>
 <body>
   <div class="wrap">
     <header>
-      <div class="dept">Bureau of Unfinished Business · Desk 13</div>
-      <h1>The Infernal Registry<span>Office of Pacts</span></h1>
-      <div class="rule"></div>
-      <p class="lede">State the bargain. Pay the clerk’s fee. Receive a numbered certificate. This is theater. No souls are transferred. The devil is a brand.</p>
+      <svg class="mark" viewBox="0 0 200 200" aria-hidden="true">
+        <path d="M100 52 C133 52 154 76 154 108 C154 136 132 150 122 162 L100 188 L78 162 C68 150 46 136 46 108 C46 76 67 52 100 52 Z" fill="#b32626"/>
+        <path d="M84 64 C64 56 46 36 48 8 C58 26 76 42 100 50 Z" fill="#b32626"/>
+        <path d="M116 64 C136 56 154 36 152 8 C142 26 124 42 100 50 Z" fill="#b32626"/>
+        <path d="M60 96 Q80 88 98 106 Q78 108 60 96 Z" fill="#0d0202"/>
+        <path d="M140 96 Q120 88 102 106 Q122 108 140 96 Z" fill="#0d0202"/>
+        <path d="M68 128 Q100 156 132 128 Q100 140 68 128 Z" fill="#0d0202"/>
+        <path d="M78 132 L84 141 L90 134 Z M110 134 L116 141 L122 132 Z" fill="#b32626"/>
+        <path d="M94 158 L100 186 L106 158 Q100 162 94 158 Z" fill="#0d0202"/>
+      </svg>
+      <div class="dept">Bureau of Unfinished Business<br/>Desk 13</div>
+      <h1>The Infernal Registry<small>Deal with the devil. Get it in writing.</small></h1>
+      <p class="question">What would you sell your soul for?</p>
+      <p class="lede">Put it in writing. We number it, seal it in a black envelope, and mail it to you. Keep the paper.</p>
     </header>
-    <div class="grid">
-      <form class="panel" id="intake" onsubmit="return filePact(event)">
-        <label for="party">Party of the first part</label>
-        <input id="party" name="party" autocomplete="name" placeholder="Your name as it should appear" required />
-        <label for="bargain">The consideration sought</label>
-        <textarea id="bargain" name="bargain" maxlength="280" placeholder="What you want. One sentence. The clerk will not edit it." required></textarea>
-        <label>Fee schedule</label>
-        <div class="tiers">
-          <label class="tier picked"><span><input type="radio" name="tier" value="6.66" checked /> <b>Filed copy</b> · <em>instant certificate</em></span><span class="price">$6.66</span></label>
-          <label class="tier"><span><input type="radio" name="tier" value="26" /> <b>Sealed packet</b> · <em>print it yourself tonight</em></span><span class="price">$26</span></label>
-          <label class="tier"><span><input type="radio" name="tier" value="66" /> <b>Archive copy</b> · <em>the ugly official one</em></span><span class="price">$66</span></label>
-        </div>
-        <button class="file" type="submit">File the pact</button>
-        <p class="fine">Checkout is not wired to a bank yet. Filing generates the certificate now. Stripe drops on this button when you have keys. You are selling paper, not a miracle.</p>
-      </form>
-      <div class="pact-stage">
+
+    <form class="panel" id="intake" novalidate>
+      <label for="party">Your name, as it should appear</label>
+      <input id="party" name="party" autocomplete="nickname" maxlength="40" placeholder="Sonny, or an alias" required />
+
+      <label for="wish">What you'd sell your soul for</label>
+      <p class="hint">One sentence. It goes on the paper exactly as you write it.</p>
+      <textarea id="wish" name="wish" maxlength="200" placeholder="I want my ex to realize what they lost." required></textarea>
+      <div class="count"><span id="cnt">0</span>/200</div>
+
+      <button class="primary" type="submit" id="ask">Draft the paper</button>
+      <p class="err" id="err" role="alert"></p>
+    </form>
+
+    <section id="result" aria-live="polite">
+            <div class="pact-stage">
         <div class="pact" id="pact">
           <div class="pact-inner">
             <div class="office">Infernal Registry · Novelty Instrument</div>
-            <h2>Instrument of Pact</h2>
+            <h3>Instrument of Pact</h3>
             <div class="sub">Entered for spectacle, not for metaphysics</div>
-            <div class="meta"><span id="pactNo">No. —</span><span id="pactDate">Date —</span></div>
-            <p class="body">Be it known that <strong id="outParty">the undersigned</strong> has this day presented the following petition to the clerk:</p>
-            <p class="bargain" id="outBargain">“—”</p>
-            <p class="body">In consideration of the fee of <strong id="outFee">$6.66</strong>, a numbered copy of this instrument is issued. The Registry makes no representation that any power, spirit, or outcome attaches to this paper.</p>
+            <div class="meta"><span id="pactNo">No. — pending payment</span><span id="pactDate">Date —</span></div>
+            <p class="body">Be it known that <strong id="pactParty">the undersigned</strong> has this day presented the following petition to the clerk:</p>
+            <p class="bargain" id="pactWish">“—”</p>
+            <p class="devil"><span>As recorded by the Registry</span><span id="pactTerms">—</span></p>
+                        <p class="body" style="margin-top:10px">In consideration of the fee paid, a numbered copy of this instrument is issued. The Registry makes no representation that any power, spirit, or outcome attaches to this paper.</p>
             <div class="signs">
-              <div><div class="sign-line" id="signParty"> </div>Party of the first part</div>
-              <div><div class="seal">Filed<br/>Desk 13</div></div>
+              <div><div class="sign-line" id="pactSign"> </div>Party of the first part</div>
+              <div class="seal">Not<br/>Filed</div>
             </div>
           </div>
+          <div class="unsigned" id="unsignedStamp">UNSIGNED</div>
         </div>
-        <div class="actions">
-          <button type="button" onclick="window.print()">Print certificate</button>
-        </div>
+        <p class="cert-note">Your certificate. It gets its number and the red seal when it's filed and paid for.</p>
+      <div class="cardwrap"><canvas id="card" width="1080" height="1920" role="img" aria-label="Your unsigned pact card"></canvas></div>
+      <p class="stamp-note">Your card. Post it, or send it to someone. Nothing is filed until you pay the clerk.</p>
+
+      <div class="actions">
+        <button type="button" id="shareBtn">Share card</button>
+        <button type="button" id="saveBtn">Save card</button>
+        <button type="button" id="copyBtn">Copy link</button>
+        <button type="button" id="againBtn">Try another</button>
       </div>
-    </div>
-    <footer>The Infernal Registry is a novelty print shop. Keep the paper. Do not sue the dark.</footer>
+      <div class="toast" id="toast"></div>
+
+      <div class="official">
+        <h2>File it</h2>
+        <p class="sub">Filing gives it a real number and the seal. Your card and certificate change to <em>FILED</em>.</p>
+
+        <div class="tier lead">
+          <div class="row"><b>Sealed packet</b><span class="price">$26</span></div>
+          <div class="what"><strong>The paper, mailed to you.</strong> Your certificate printed on heavy stock, numbered, in a black envelope with a red seal. Comes with a clerk's receipt and two witness cards. Plus the digital copy and a FILED card for your stories.</div>
+          <button type="button" data-tier="26">Mail me the paper — $26</button>
+        </div>
+        <div class="tier">
+          <div class="row"><b>Archive copy</b><span class="price">$66</span></div>
+          <div class="what"><strong>Mailed.</strong> The sealed packet, plus a hand-numbered archive duplicate on archival stock with a raised seal and a serialized evidence tag. Limited each month.</div>
+          <button type="button" data-tier="66">Archive it — $66</button>
+        </div>
+        <div class="tier">
+          <div class="row"><b>Digital only</b><span class="price">$6.66</span></div>
+          <div class="what">Numbered certificate as a PDF, plus your FILED card. Sent by email. Nothing mailed.</div>
+          <button type="button" data-tier="666">Just the file — $6.66</button>
+        </div>
+        <p class="fine"><em>This is theater. No souls are transferred. The devil is a brand.</em> You are buying a novelty certificate and, for the mailed tiers, a printed packet. Nothing supernatural, legal, or binding happens. Mailed tiers ship by post; delivery details are shown at checkout.</p>
+      </div>
+
+      </div>
+    </section>
+
+    <footer>
+      The Infernal Registry is a novelty paper shop. Keep the paper. Do not sue the dark.<br/>
+      Your wish stays on your phone until you file it. Nothing is published without you.
+    </footer>
   </div>
-  <script>
-    const tiers = document.querySelectorAll(".tier");
-    tiers.forEach((t) => {
-      t.addEventListener("click", () => {
-        tiers.forEach((x) => x.classList.remove("picked"));
-        t.classList.add("picked");
-        t.querySelector("input").checked = true;
-      });
-    });
-    function nextNumber() {
-      const n = Number(localStorage.getItem("ir_seq") || "66000") + 1;
-      localStorage.setItem("ir_seq", String(n));
-      return "IR-" + String(n).padStart(6, "0");
-    }
-    function filePact(e) {
-      e.preventDefault();
-      const party = document.getElementById("party").value.trim();
-      const bargain = document.getElementById("bargain").value.trim();
-      const fee = document.querySelector("input[name=tier]:checked").value;
-      if (!party || !bargain) return false;
-      document.getElementById("outParty").textContent = party;
-      document.getElementById("outBargain").textContent = "\u201c" + bargain + "\u201d";
-      document.getElementById("outFee").textContent = "$" + fee;
-      document.getElementById("signParty").textContent = party;
-      document.getElementById("pactNo").textContent = "No. " + nextNumber();
-      document.getElementById("pactDate").textContent = new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }).toUpperCase();
-      document.getElementById("pact").scrollIntoView({ behavior: "smooth", block: "center" });
-      return false;
-    }
-  </script>
+
+<script>
+/* ============================================================
+   CONFIG — the only part Sonny needs to touch before going live
+   ============================================================ */
+const SITE_URL = "https://infernal-registry.netlify.app";   // where "File yours" links point
+// Stripe Payment Links (create in Stripe Dashboard → Payment Links). Leave "" until you have them.
+// Tip: add two custom fields on each link — "Name on the pact" and "Your wish" — so the order carries the text.
+const PAY = {
+  "666": "",   // Filed copy  $6.66
+  "26":  "https://buy.stripe.com/fZu6oGdJrg5IeA44RWcMM03",   // Sealed packet $26
+  "66":  ""    // Archive copy $66
+};
+
+/* ============================================================
+   AS RECORDED BY THE REGISTRY — the customer's want, rewritten as terms
+   ============================================================ */
+const T = [
+ { k: /\b(attack|attacked|eaten|bitten|mauled|piranha|piranhas|shark|sharks|bear|bears|wasps|struck by|hit by|lightning|fall|falls|trip|bald|lose (his|her|their) hair|rot|burn|suffer|suffers|revenge|karma|payback|get what|deserve|deserves|ruin|ruined|humiliat|fired|dumped|alone forever|cursed|curse|misery|miserable|hell)\b/i, l: [
+   "Named party to meet the stated fate. Fate to be administered slowly, off-camera, and reported to the undersigned by no one.",
+   "Request granted as written. Animals, weather, or bad luck involved to be supplied at the Registry's expense. Named party to make a full recovery and post about it.",
+   "Stated fate to befall named party in full. Named party to come out of it with a better story than the undersigned.",
+   "Named party to suffer exactly as described. Undersigned to feel better for eleven (11) minutes." ] },
+ { k: /\b(ex|realiz|regret|come back|miss me|left me|broke up|breakup|want me back|crawl back|beg)\b/i, l: [
+   "Ex-partner to experience one (1) pang of regret, at approximately 2 a.m., while drunk, on a date of the Registry's choosing. Not to be communicated to the undersigned.",
+   "Former partner to think about the undersigned exactly once, for four seconds, while looking for a charger.",
+   "Former partner to return, briefly, and remind the undersigned why it ended." ] },
+ { k: /\b(rich|money|million|billion|lottery|wealth|cash|debt|paid off|pay off|bills)\b/i, l: [
+   "Undersigned to acquire wealth. Wealth to be delivered in the form of stress, distant relatives, and a tax situation.",
+   "Sum requested to be delivered in full, in a currency the Registry has not yet decided on.",
+   "Undersigned to become rich. Undersigned to remain the same person, now with a boat." ] },
+ { k: /\b(famous|fame|celebrity|viral|followers|influencer|known|recognized)\b/i, l: [
+   "Undersigned to be recognized in public, briefly, by the wrong people.",
+   "Undersigned to go viral. Reason for going viral left to the Registry's discretion.",
+   "Fame granted for a period of eleven (11) days. Fame not transferable, refundable, or survivable." ] },
+ { k: /\b(love|loved|soulmate|marry|married|wife|husband|girlfriend|boyfriend|relationship|someone to love)\b/i, l: [
+   "Undersigned to be loved, unconditionally, by someone who chews loudly.",
+   "One (1) soulmate to be provided. Soulmate's opinion on the matter not solicited.",
+   "True love to be delivered. Delivery window: shortly after it would have been convenient." ] },
+ { k: /\b(skinny|thin|weight|abs|muscle|ripped|jacked|hot|sexy|beautiful|pretty|handsome|hair|taller|body)\b/i, l: [
+   "Undersigned to be conventionally attractive, at a resolution nobody they care about will notice.",
+   "Desired physique to be granted. Metabolism to be adjusted in the other direction, at fifty.",
+   "Undersigned to become hot. Undersigned's friends to become unbearable about it." ] },
+ { k: /\b(job|promotion|promoted|boss|career|raise|fired|quit|work|manager|ceo)\b/i, l: [
+   "Undersigned to be promoted. Salary to increase by an amount fully absorbed by new obligations.",
+   "Boss to be removed from the undersigned's life and replaced with the boss's boss.",
+   "Career success to be granted. Success to be measured in meetings." ] },
+ { k: /\b(sing|singer|guitar|piano|music|band|artist|paint|write|writer|author|talent|talented|smart|genius|skill|good at)\b/i, l: [
+   "Undersigned to become gifted at the stated craft. Audience not included.",
+   "Talent to be granted in full. Discipline to be withheld, as before.",
+   "Genius to be conferred. Genius to be recognized posthumously." ] },
+ { k: /\b(doubted|doubters|prove|wrong|haters|show them|show everyone|succeed|laughed at me|told me i couldn)\b/i, l: [
+   "Doubters to witness the undersigned's success. Doubters to attribute it to luck.",
+   "Named parties to be proven wrong. Named parties to not notice.",
+   "Undersigned to succeed in front of everyone. Everyone to be looking at their phones." ] },
+ { k: /\b(nba|nfl|mlb|nhl|player|athlete|pro|olympic|olympian|dunk|quarterback|pitcher|goalie|play for|drafted|go pro)\b/i, l: [
+   "Undersigned to play at the stated level for one (1) season. Knees to be settled separately.",
+   "Undersigned to make the league. Undersigned to make it as the guy who gets traded.",
+   "Athletic ability to be granted in full. Highlight to be uploaded in 240p." ] },
+ { k: /\b(championship|super bowl|world series|stanley cup|title|packers|bears|bucks|brewers|badgers|lakers|yankees|cowboys|team|win it all)\b/i, l: [
+   "Named team to win it all. Undersigned to be asleep when it happens.",
+   "Championship to be delivered once. The following forty (40) years to proceed as before.",
+   "Team to win. Undersigned's name to appear nowhere." ] },
+ { k: /\b(world|humanity|hunger|planet|war|all people|mankind|the earth)\b/i, l: [
+   "World to be saved. World to be unsupervised again by Tuesday.",
+   "Everyone to be happy. Everyone to be insufferable about it.",
+   "Global request granted. Undersigned to be given credit by no one." ] },
+ { k: /\b(sleep|rest|tired|exhausted|relax|vacation|nap|energy)\b/i, l: [
+   "Rest to be delivered in full, at a time when it will be inconvenient.",
+   "One (1) full night's sleep to be granted. Undersigned to wake and remember everything.",
+   "Undersigned to never be tired again. Undersigned to lie awake, alert, for the rest of it." ] },
+ { k: /\b(peace|quiet|alone|leave me|left alone|silence|nobody bother)\b/i, l: [
+   "Peace and quiet to be provided. Source of the quiet not to be questioned.",
+   "Undersigned to be left alone. Request to be honored permanently and by everyone.",
+   "Silence to be granted. Undersigned to notice the refrigerator." ] },
+ { k: /\b(pizza|taco|tacos|coffee|beer|wine|whiskey|chocolate|cheese|burger|fries|donut|donuts|cake|food|eat|snacks|cheeseburger|steak)\b/i, l: [
+   "Stated item to be supplied in unlimited quantity. Undersigned's enjoyment of it to be finite.",
+   "Lifetime supply granted. Lifetime to be revised.",
+   "Item to be provided as the last thing the undersigned ever tastes. It will be fine." ] },
+ { k: /\b(house|home|mansion|land|cabin|apartment|condo|property|acre|acres|lake|beach house|farm)\b/i, l: [
+   "Property to be granted. Property tax to be granted alongside it.",
+   "Undersigned to receive the stated home. Home to receive the undersigned's relatives.",
+   "Dwelling to be provided as described. Neighbors to be provided as available." ] },
+ { k: /\b(car|truck|boat|motorcycle|harley|corvette|ferrari|lambo|lamborghini|porsche|tesla|jet|plane|yacht)\b/i, l: [
+   "Vehicle to be delivered. Vehicle to arrive with a note from the previous owner.",
+   "Vehicle to be granted, in the stated color. Payment to be granted, in installments, forever.",
+   "Undersigned to own the stated vehicle. Undersigned to own, additionally, its problems." ] },
+ { k: /\b(dog|cat|puppy|kitten|pet|horse)\b/i, l: [
+   "Animal to live forever. Animal to outlive the undersigned and be fine about it.",
+   "Pet to be provided. Pet to prefer the neighbor." ] },
+ { k: /\b(live forever|forever|immortal|immortality|never die|not die|don't die|eternal|live to)\b/i, l: [
+   "Undersigned to live forever. Everyone else not to.",
+   "Death to be waived for the undersigned. Aging to proceed as scheduled.",
+   "Immortality granted. Undersigned to attend every funeral from here on." ] },
+ { k: /\b(young|younger|age|go back|do over|do-over|another chance|redo|time machine|years ago|start over|be 20|be 21|be 25|be 18)\b/i, l: [
+   "Undersigned to be returned to the stated age, with current knowledge and the same haircut.",
+   "One (1) do-over granted. Undersigned to do the same thing.",
+   "Time to be reversed as requested. Undersigned's knees to be exempt." ] },
+ { k: /\b(happy|happiness|content|joy|okay|fine|feel better|not sad|not anxious|anxiety|stress)\b/i, l: [
+   "Happiness to be granted. Undersigned to become the kind of person who posts about it.",
+   "Undersigned to be content. Undersigned to find this suspicious." ] },
+ { k: /\b(power|president|king|queen|rule|ruler|control|in charge|emperor|dictator|god)\b/i, l: [
+   "Undersigned to be given authority. Authority to come with a phone that never stops.",
+   "Undersigned to rule. Subjects to remain exactly who they are now." ] },
+ { k: /\b(win|winning|winner|first place|beat|best|number one|#1|the greatest)\b/i, l: [
+   "Undersigned to win. Trophy to be engraved with a small spelling error.",
+   "Victory to be granted. Nobody the undersigned wanted to impress will be watching." ] }
+];
+const GENERIC = [
+  "Stated request to be granted, in the literal sense, at the least useful moment.",
+  "Request approved. Fulfillment to be technically accurate.",
+  "Granted. The Registry notes that the undersigned did not specify 'and I get to enjoy it.'",
+  "Item to be delivered exactly as described. Undersigned to discover what they actually meant.",
+  "Request granted in full. Side effects to be disclosed later, in person, by someone the undersigned trusts.",
+  "Approved as written. The Registry did not read it carefully either."
+];
+// Wants that aren't a joke. The Registry declines to add terms.
+const STRAIGHT = /\b(cancer|sick|illness|disease|cure|heal|healed|healthy again|get better|recover|recovery|surgery|chemo|alive again|bring back|back from the dead|come back to life|didn't die|hadn't died|sober|clean|relapse)\b/i;
+const CONSIDERATION = "Consideration: one (1) soul, as-is.";
+function recordTerms(wish) {
+  if (STRAIGHT.test(wish)) return { line: "Recorded as written. The Registry adds no terms to this one.", straight: true };
+  const h = hash(wish.toLowerCase());
+  for (const b of T) if (b.k.test(wish)) return { line: b.l[h % b.l.length] + " " + CONSIDERATION, straight: false };
+  return { line: GENERIC[h % GENERIC.length] + " " + CONSIDERATION, straight: false };
+}
+
+/* ============================================================
+   Helpers
+   ============================================================ */
+const $ = (id) => document.getElementById(id);
+function hash(s) { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+function clean(s, max) { return String(s || "").replace(/[\u0000-\u001f\u007f]/g, " ").replace(/\s+/g, " ").trim().slice(0, max); }
+const HARM = /\b(suicide|kill (myself|him|her|them|my |everyone)|hurt (myself|him|her|them)|end it all|murder|shoot (him|her|them|up|myself)|stab)\b/i;
+function storage(key, val) { try { if (val === undefined) return localStorage.getItem(key); localStorage.setItem(key, val); } catch (e) { return null; } }
+function myKey() { let k = storage("ir_key"); if (!k) { k = Math.random().toString(36).slice(2, 8); storage("ir_key", k); } return k; }
+// Referral: ?ref=abc on arrival is remembered and passed to checkout as client_reference_id
+const ref = new URLSearchParams(location.search).get("ref"); if (ref && /^[a-z0-9]{3,12}$/i.test(ref)) storage("ir_ref", ref);
+function shareUrl() { return SITE_URL + "?ref=" + myKey(); }
+function toast(msg) { $("toast").textContent = msg; clearTimeout(toast.t); toast.t = setTimeout(() => { $("toast").textContent = ""; }, 3200); }
+
+/* ============================================================
+   Card renderer — 1080×1920, drawn directly so it exports clean
+   ============================================================ */
+function wrapLines(ctx, text, maxW) {
+  const words = text.split(" "); const lines = []; let cur = "";
+  for (const w of words) { const t = cur ? cur + " " + w : w; if (ctx.measureText(t).width > maxW && cur) { lines.push(cur); cur = w; } else cur = t; }
+  if (cur) lines.push(cur); return lines;
+}
+function fitText(ctx, text, font, maxW, startPx, minPx, maxLines) {
+  for (let px = startPx; px >= minPx; px -= 2) { ctx.font = font.replace("{px}", px); const l = wrapLines(ctx, text, maxW); if (l.length <= maxLines) return { lines: l, px }; }
+  ctx.font = font.replace("{px}", minPx); const l = wrapLines(ctx, text, maxW); return { lines: l.slice(0, maxLines), px: minPx };
+}
+function drawBlock(ctx, lines, x, y, px, lineH, color) { ctx.fillStyle = color; lines.forEach((l, i) => ctx.fillText(l, x, y + i * px * lineH)); return y + lines.length * px * lineH; }
+function spaced(ctx, text, x, y, spacing) {
+  // letter-spaced centered text without relying on ctx.letterSpacing support
+  const chars = text.split(""); let w = 0; const widths = chars.map(c => { const cw = ctx.measureText(c).width; w += cw + spacing; return cw; }); w -= spacing;
+  let cx = x - w / 2; const align = ctx.textAlign; ctx.textAlign = "left";
+  chars.forEach((c, i) => { ctx.fillText(c, cx, y); cx += widths[i] + spacing; }); ctx.textAlign = align;
+}
+const MARK = [
+  ["#b32626", "M100 52 C133 52 154 76 154 108 C154 136 132 150 122 162 L100 188 L78 162 C68 150 46 136 46 108 C46 76 67 52 100 52 Z"],
+  ["#b32626", "M84 64 C64 56 46 36 48 8 C58 26 76 42 100 50 Z"],
+  ["#b32626", "M116 64 C136 56 154 36 152 8 C142 26 124 42 100 50 Z"],
+  ["#0d0202", "M60 96 Q80 88 98 106 Q78 108 60 96 Z"],
+  ["#0d0202", "M140 96 Q120 88 102 106 Q122 108 140 96 Z"],
+  ["#0d0202", "M68 128 Q100 156 132 128 Q100 140 68 128 Z"],
+  ["#b32626", "M78 132 L84 141 L90 134 Z M110 134 L116 141 L122 132 Z"],
+  ["#0d0202", "M94 158 L100 186 L106 158 Q100 162 94 158 Z"]
+];
+function drawMark(ctx, cx, cy, r) {
+  ctx.save(); ctx.translate(cx - r, cy - r); ctx.scale(r / 100, r / 100);
+  for (const [fill, d] of MARK) { ctx.fillStyle = fill; ctx.fill(new Path2D(d)); }
+  ctx.restore();
+}
+async function drawCard(name, wish, terms, status) {
+  await Promise.all([
+    document.fonts.load('900 100px "Cinzel"'), document.fonts.load('700 40px "Cinzel"'), document.fonts.load('500 30px "Cinzel"'),
+    document.fonts.load('italic 600 70px "Cormorant Garamond"'), document.fonts.load('600 60px "Cormorant Garamond"'), document.fonts.load('400 40px "Cormorant Garamond"')
+  ]).catch(() => {});
+  const c = $("card"), ctx = c.getContext("2d"); const W = 1080, H = 1920;
+  ctx.clearRect(0, 0, W, H);
+  ctx.fillStyle = "#070605"; ctx.fillRect(0, 0, W, H);
+  const g = ctx.createRadialGradient(W / 2, -80, 50, W / 2, -80, 900); g.addColorStop(0, "rgba(179,38,38,.30)"); g.addColorStop(1, "rgba(179,38,38,0)"); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  const g2 = ctx.createRadialGradient(W * .9, H * 1.05, 50, W * .9, H * 1.05, 800); g2.addColorStop(0, "rgba(90,8,8,.45)"); g2.addColorStop(1, "rgba(90,8,8,0)"); ctx.fillStyle = g2; ctx.fillRect(0, 0, W, H);
+  ctx.strokeStyle = "#c4a35a"; ctx.lineWidth = 3; ctx.strokeRect(48, 48, W - 96, H - 96); ctx.lineWidth = 1; ctx.globalAlpha = .55; ctx.strokeRect(62, 62, W - 124, H - 124); ctx.globalAlpha = 1;
+  drawMark(ctx, W / 2, 190, 56);
+  ctx.textAlign = "center"; ctx.textBaseline = "alphabetic";
+  ctx.fillStyle = "#c4a35a"; ctx.font = '500 30px "Cinzel"'; spaced(ctx, "THE INFERNAL REGISTRY", W / 2, 322, 9);
+  ctx.fillStyle = "#9a8c78"; ctx.font = '500 22px "Cinzel"'; spaced(ctx, "BUREAU OF UNFINISHED BUSINESS", W / 2, 362, 6);
+  ctx.fillStyle = "#9a8c78"; ctx.font = '400 40px "Cormorant Garamond"'; ctx.fillText(name + " would sell their soul for", W / 2, 480);
+  const wishFit = fitText(ctx, "“" + wish + "”", 'italic 600 {px}px "Cormorant Garamond"', 900, 76, 44, 4);
+  ctx.font = 'italic 600 ' + wishFit.px + 'px "Cormorant Garamond"';
+  let y = drawBlock(ctx, wishFit.lines, W / 2, 560, wishFit.px, 1.1, "#e8dcc8");
+  y += 34; ctx.strokeStyle = "#b32626"; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(W / 2 - 160, y); ctx.lineTo(W / 2 + 160, y); ctx.stroke();
+  y += 56; ctx.fillStyle = "#c4a35a"; ctx.font = '500 24px "Cinzel"'; spaced(ctx, "AS RECORDED BY THE REGISTRY", W / 2, y, 7);
+  y += 62; const tFit = fitText(ctx, terms, '500 {px}px "Cormorant Garamond"', 880, 44, 32, 7);
+  ctx.font = '500 ' + tFit.px + 'px "Cormorant Garamond"';
+  y = drawBlock(ctx, tFit.lines, W / 2, y, tFit.px, 1.22, "#d9302f");
+  y += 44; ctx.fillStyle = "#9a8c78"; ctx.font = '500 22px "Cinzel"'; spaced(ctx, status === "filed" ? "INSTRUMENT OF PACT" : "INSTRUMENT OF PACT  ·  NO. PENDING", W / 2, y, 6);
+  // stamp
+  const label = status === "filed" ? "FILED" : "UNSIGNED"; const sub = status === "filed" ? "DESK 13" : "NOT YET FILED";
+  const sy = Math.max(y + 150, 1400);
+  ctx.save(); ctx.translate(W / 2, sy); ctx.rotate(-0.21); ctx.globalAlpha = .92;
+  ctx.font = '900 118px "Cinzel"'; const tw = ctx.measureText(label).width + 90;
+  ctx.strokeStyle = "#c22626"; ctx.lineWidth = 9; ctx.strokeRect(-tw / 2, -104, tw, 148); ctx.lineWidth = 3; ctx.strokeRect(-tw / 2 + 14, -90, tw - 28, 120);
+  ctx.fillStyle = "#c22626"; ctx.fillText(label, 0, 4); ctx.font = '700 28px "Cinzel"'; spaced(ctx, sub, 0, 92, 6); ctx.restore();
+  // footer
+  ctx.fillStyle = "#e8dcc8"; ctx.font = 'italic 600 48px "Cormorant Garamond"'; ctx.fillText("What would you sell yours for?", W / 2, 1722);
+  ctx.fillStyle = "#c4a35a"; ctx.font = '700 28px "Cinzel"'; spaced(ctx, SITE_URL.replace(/^https?:\/\//, "").toUpperCase(), W / 2, 1782, 5);
+  ctx.fillStyle = "#6f6455"; ctx.font = '400 22px "Cormorant Garamond"'; ctx.fillText("This is theater. No souls are transferred.", W / 2, 1830);
+}
+
+/* ============================================================
+   Flow
+   ============================================================ */
+let current = null;
+$("wish").addEventListener("input", (e) => { $("cnt").textContent = e.target.value.length; });
+
+$("intake").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const err = $("err"); err.classList.remove("show");
+  const name = clean($("party").value, 40); const wish = clean($("wish").value, 200);
+  if (!name) { err.textContent = "The devil needs a name to address. An alias is fine."; err.classList.add("show"); $("party").focus(); return; }
+  if (wish.length < 8) { err.textContent = "That's not a wish yet. Say what you actually want, in a sentence."; err.classList.add("show"); $("wish").focus(); return; }
+  if (HARM.test(wish)) { err.textContent = "The Registry doesn't file that one. If this is about you, please talk to someone tonight — in the US, call or text 988. Then come back with a wish for yourself."; err.classList.add("show"); return; }
+  const rec = recordTerms(wish);
+  current = { name, wish, terms: rec.line };
+  $("pactParty").textContent = name; $("pactWish").textContent = "“" + wish + "”"; $("pactTerms").textContent = rec.line; $("pactSign").textContent = name;
+  $("pactDate").textContent = new Date().toLocaleDateString("en-US", { day: "2-digit", month: "short", year: "numeric" }).toUpperCase();
+  $("ask").disabled = true; $("ask").textContent = "Drafting…";
+  await drawCard(name, wish, rec.line, "unsigned");
+  $("ask").disabled = false; $("ask").textContent = "Draft the paper";
+  $("result").classList.add("show");
+  const st = $("unsignedStamp"); st.classList.remove("stamp-in"); void st.offsetWidth; st.classList.add("stamp-in");
+  $("result").scrollIntoView({ behavior: "smooth", block: "start" });
+  track("petition_previewed");
+});
+
+function cardBlob() { return new Promise((res) => $("card").toBlob(res, "image/png")); }
+function cardName() { return "infernal-registry-unsigned.png"; }
+function shareText() { return `${current.name} would sell their soul for: “${current.wish}”\nAs recorded: ${current.terms}\n\nWhat would you sell yours for? ${shareUrl()}`; }
+
+$("shareBtn").addEventListener("click", async () => {
+  if (!current) return; const blob = await cardBlob(); const file = new File([blob], cardName(), { type: "image/png" });
+  try {
+    if (navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file], title: "The Infernal Registry", text: shareText() }); track("filing_shared"); return; }
+    if (navigator.share) { await navigator.share({ title: "The Infernal Registry", text: shareText(), url: shareUrl() }); track("filing_shared"); return; }
+  } catch (e) { if (e && e.name === "AbortError") return; }
+  await saveCard(blob); // no share sheet here: save the image instead
+});
+async function saveCard(blob) {
+  blob = blob || await cardBlob();
+  try {
+    const dl = window.claude && window.claude.use ? await window.claude.use("downloads") : null;
+    if (dl) { await dl.save({ filename: cardName(), data: blob }); toast("Saved. Post it, or send it to someone who needs to see it."); track("pending_card_downloaded"); return; }
+  } catch (e) { if (e && e.code === "declined") return; }
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = cardName(); document.body.appendChild(a); a.click(); a.remove();
+  toast("Saved to your downloads."); track("pending_card_downloaded");
+}
+$("saveBtn").addEventListener("click", () => saveCard());
+$("copyBtn").addEventListener("click", async () => {
+  try { await navigator.clipboard.writeText(shareText()); toast("Copied. Paste it anywhere."); track("filing_shared"); }
+  catch (e) { toast("Couldn't copy on this browser. Use Share instead."); }
+});
+$("againBtn").addEventListener("click", () => { $("wish").value = ""; $("cnt").textContent = "0"; $("wish").focus(); window.scrollTo({ top: 0, behavior: "smooth" }); track("second_petition_started"); });
+
+// Checkout — Stripe Payment Links. The petition never leaves the phone; the customer re-enters it in Stripe's custom fields.
+document.querySelectorAll("[data-tier]").forEach((btn) => {
+  const link = PAY[btn.dataset.tier];
+  if (!link) { btn.classList.add("off"); btn.textContent = "Checkout not connected yet"; btn.setAttribute("aria-disabled", "true"); }
+  btn.addEventListener("click", () => {
+    if (!link) { toast("Paper isn't for sale yet. Filing opens when the clerk connects Stripe."); return; }
+    const refId = ("p" + hash(current ? current.wish : "").toString(36) + "_" + myKey() + (storage("ir_ref") ? "_r" + storage("ir_ref") : "")).slice(0, 190);
+    track("checkout_started", btn.dataset.tier);
+    location.href = link + (link.includes("?") ? "&" : "?") + "client_reference_id=" + encodeURIComponent(refId);
+  });
+});
+
+// Analytics — plain events. Swap the body for Plausible / GA / a Netlify function when ready.
+function track(ev, val) { try { window.dataLayer = window.dataLayer || []; window.dataLayer.push({ event: ev, value: val || null, ref: storage("ir_ref") || null }); } catch (e) {} }
+track("landing_view");
+</script>
 </body>
 </html>
